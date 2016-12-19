@@ -11,15 +11,18 @@
 	yum install -y htop
 	yum groupinstall -y "Development Tools"
 
+
 #clone git
 	cd ~;git clone https://github.com/Alex-duzhichao/server_init.git
+
 
 # install oh-my-zsh
 	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 	sed -i 's/^plugins=(.*)/plugins=(git history colored-man-pages)/g' ~/.zshrc
 	sed -i 's/^# ENABLE_CORRECTION="true"/ENABLE_CORRECTION="true"/' ~/.zshrc
-	cat "source ~/server_init/zsh_alias >> ~/.zshrc"
+	echo "source ~/server_init/zsh_alias >> ~/.zshrc"
 	source ~/.zshrc
+
 
 
 
