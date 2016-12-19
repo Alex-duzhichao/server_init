@@ -9,6 +9,8 @@
 	yum install -y lrzsz
 	yum install -y strace
 	yum install -y htop
+	yum install -y ack
+	yum install -y dos2unix
 	yum groupinstall -y "Development Tools"
 
 
@@ -20,7 +22,8 @@
 	sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 	sed -i 's/^plugins=(.*)/plugins=(git history colored-man-pages)/g' ~/.zshrc
 	sed -i 's/^# ENABLE_CORRECTION="true"/ENABLE_CORRECTION="true"/' ~/.zshrc
-	echo "source ~/server_init/zsh_alias >> ~/.zshrc"
+	echo "source ~/server_init/zsh_alias" >> ~/.zshrc
+	dos2unix server_init/zsh_alias
 	source ~/.zshrc
 
 
