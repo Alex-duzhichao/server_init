@@ -2,7 +2,7 @@
 ==============  
 
 # install 
-    yum -y install epel-release
+    yum install -y epel-release
    	yum install -y git
 	yum install -y sudo
 	yum install -y zsh
