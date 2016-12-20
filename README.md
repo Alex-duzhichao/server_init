@@ -63,6 +63,8 @@
 		chmod 700 ~/.ssh
         chmod 600 ~/.ssh/authorized_keys
 
+        tail -f /var/log/secure
+
 # install vim
     yum erase vim-enhanced vim-common vim-minimal vim-filesystem -y
 
