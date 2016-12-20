@@ -14,6 +14,7 @@
 	yum install -y screen
 	yum install -y cscope
 	yum install -y boost
+	yum install -y cmake
 	yum install -y python-setuptools python python-devel
 	easy_install pip && pip install virtualenv
 	yum groupinstall -y "Development Tools"
