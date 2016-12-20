@@ -11,6 +11,8 @@
 	yum install -y htop
 	yum install -y ack
 	yum install -y dos2unix
+	yum install -y screen
+	yum install -y cscope
 	yum groupinstall -y "Development Tools"
 
 
