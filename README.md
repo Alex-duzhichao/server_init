@@ -28,6 +28,18 @@
 	dos2unix server_init/zsh_alias
 	source ~/.zshrc
 
+# install redis
+	yum install -y redis
+	service redis start
+
+# install mariadb
+	yum install -y mariadb-server mariadb-devel mariadb-libs
+	service mariadb start
+
+# install nginx
+	yum install -y nginx
+  	service nginx start
+
 # install vim
     yum erase vim-enhanced vim-common vim-minimal vim-filesystem -y
 
