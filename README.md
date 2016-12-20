@@ -46,6 +46,22 @@
 
 # install flask
 
+# install ssh key 
+	A --> B
+	A:
+		ssh-keygen
+		ssh-copy-id root@112.74.206.48
+	B:
+		/etc/ssh/sshd_config
+		RSAAuthentication yes
+　　    PubkeyAuthentication yes
+　　    AuthorizedKeysFile .ssh/authorized_keys
+	
+		service sshd restart
+		cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+		chmod 700 ~/.ssh
+        chmod 600 ~/.ssh/authorized_keys
+
 # install vim
     yum erase vim-enhanced vim-common vim-minimal vim-filesystem -y
 
