@@ -13,7 +13,10 @@
 	yum install -y dos2unix
 	yum install -y screen
 	yum install -y cscope
+	yum install -y python-setuptools python python-devel
+	easy_install pip && pip install virtualenv
 	yum groupinstall -y "Development Tools"
+
 
 
 #clone git
@@ -39,6 +42,9 @@
 # install nginx
 	yum install -y nginx
   	service nginx start
+  	systemctl enable nginx
+
+# install flask
 
 # install vim
     yum erase vim-enhanced vim-common vim-minimal vim-filesystem -y
