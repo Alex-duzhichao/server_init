@@ -6,6 +6,7 @@
    	yum install -y git
 	yum install -y sudo
 	yum install -y zsh
+	yum install -y tree
 	yum install -y lrzsz
 	yum install -y strace
 	yum install -y htop
@@ -15,6 +16,7 @@
 	yum install -y cscope
 	yum install -y boost
 	yum install -y cmake
+	yum install -y iotop
 	yum install -y python-setuptools python python-devel
 	easy_install pip && pip install virtualenv
 	yum groupinstall -y "Development Tools"
