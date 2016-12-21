@@ -68,6 +68,13 @@
 
         tail -f /var/log/secure
 
+# mkswap 
+	dd if=/dev/zero of=/swap-file bs=1M count=4096
+	swapon /swap-file
+	swapon -s
+	cat "UUID=eabee907-f4b0-4bbd-a316-57c8b7e812e4 swap                    swap    defaults        0 0" >> /etc/fstab
+
+	
 # install vim
     yum erase vim-enhanced vim-common vim-minimal vim-filesystem -y
 
