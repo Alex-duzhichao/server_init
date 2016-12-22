@@ -47,5 +47,5 @@ cp -fp ${config_dir}codis.conf ${codis_cfg}
 sed -i "s#^pidfile#pidfile ${codis_pid}#g" ${codis_cfg}
 sed -i "s#^port#port ${port}#g" ${codis_cfg}
 sed -i "s#^logfile#logfile ${codis_log}#g" ${codis_cfg}
-sed -i "s#^dbfilename#${codis_dump}#g" ${codis_cfg}
-sed -i "s#^dir#${codis_dir}#g" ${codis_cfg}
+sed -i "s#^dbfilename#dbfilename ${codis_dump}#g" ${codis_cfg}
+sed -i "s#^dir#dir ${codis_dir}#g" ${codis_cfg}
