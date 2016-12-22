@@ -33,7 +33,7 @@ fi
 echo -e "$DARKBLUE starting codis server on port : $1 ... $RESET"
 
 codis=/usr/local/go/goPath/src/github.com/CodisLabs/codis/
-codis_dir=${codis}codis_dir/${port}/
+codis_dir=${codis}codis_dir${port}/
 codis_cfg=${codis_dir}$1.conf
 codis_server=${codis}bin/codis-server
 ${codis_server} $codis_cfg
