@@ -37,7 +37,7 @@ codis_dir=${codis}codis_dir/${port}/
 codis_cfg=${codis_dir}$port.conf
 codis_pid=${codis_dir}$port.pid
 codis_log=${codis_dir}$port.log
-codis_dump=${codis_dir}$port.rdb
+codis_dump=$port.rdb
 
 echo -e "$DARKBLUE create codis server config ,port : $port $RESET"
 
