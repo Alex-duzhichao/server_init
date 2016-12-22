@@ -30,11 +30,12 @@ if [ $# != 1 ] ; then
     exit 1;
 fi
 
-echo -e "$DARKBLUE starting codis server on port : $1 ... $RESET"
+port=$1
+echo -e "$DARKBLUE starting codis server on port : ${port} ... $RESET"
 
 codis=/usr/local/go/goPath/src/github.com/CodisLabs/codis/
 codis_dir=${codis}codis_dir${port}/
-codis_cfg=${codis_dir}$1.conf
+codis_cfg=${codis_dir}${port}.conf
 codis_server=${codis}bin/codis-server
 ${codis_server} $codis_cfg
 
