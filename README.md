@@ -19,6 +19,7 @@
 	yum install -y iotop
 	yum install -y python-setuptools python python-devel
 	easy_install pip && pip install virtualenv
+	yum install -y java
 	yum groupinstall -y "Development Tools"
 
 
@@ -74,7 +75,38 @@
 	swapon -s
 	cat "UUID=eabee907-f4b0-4bbd-a316-57c8b7e812e4 swap                    swap    defaults        0 0" >> /etc/fstab
 
-	
+#install go
+	cd /usr/local/
+	wget https://storage.googleapis.com/golang/go1.6.2.linux-amd64.tar.gz
+	tar -zxvf go1.6.2.linux-amd64.tar.gz 
+	rm go1.6.2.linux-amd64.tar.gz 
+	mkdir /usr/local/go/goPath
+	echo "export GOROOT=/usr/local/go" >> /etc/profile
+	echo "export GOPATH=/usr/local/go/goPath" >> /etc/profile
+	echo "export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin" >> /etc/profile
+	source /etc/profile && tail -n 3 /etc/profile
+	go version
+	go get -u github.com/tools/godep && which godep
+
+# install zookeeper 3.4.9
+	cd /data
+	wget http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz
+	tar -zxvf zookeeper-3.4.9.tar.gz
+	rm zookeeper-3.4.9.tar.gz 
+	cd /data/zookeeper-3.4.9
+	cp -fp /data/zookeeper-3.4.9/conf/zoo_sample.cfg /data/zookeeper-3.4.9/conf/zoo.cfg
+	bin/zkServer.sh start
+	bin/zkServer.sh status
+
+# install codis2.0
+	go get -u github.com/tools/godep && which godep
+	mkdir -p $GOPATH/src/github.com/CodisLabs
+	cd $_ && git clone https://github.com/CodisLabs/codis.git -b release2.0
+	cd $GOPATH/src/github.com/CodisLabs/codis ; make ; ls bin/
+
+	sed -i 's/dashboard_addr=192.168.0.123:18087/dashboard_addr=0.0.0.0:18087/' /usr/local/go/goPath/src/github.com/CodisLabs/codis/config.ini
+
+
 # install vim
     yum erase vim-enhanced vim-common vim-minimal vim-filesystem -y
 
