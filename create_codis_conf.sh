@@ -31,20 +31,23 @@ if [ $# != 1 ] ; then
 fi
 
 port=$1
-config_dir="/root/server_init/"
-codis="/usr/local/go/goPath/src/github.com/CodisLabs/codis/"
-codis_dir="${codis}codis_dir/${port}/"
-codis_cfg="${codis_dir}$port.conf"
-codis_pid="${codis_dir}$port.pid"
-codis_log="${codis_dir}$port.log"
-codis_dump="${codis_dir}$port.rdb"
+config_dir=/root/server_init/
+codis=/usr/local/go/goPath/src/github.com/CodisLabs/codis/
+codis_dir=${codis}codis_dir/${port}/
+codis_cfg=${codis_dir}$port.conf
+codis_pid=${codis_dir}$port.pid
+codis_log=${codis_dir}$port.log
+codis_dump=${codis_dir}$port.rdb
 
 echo -e "$DARKBLUE create codis server config ,port : $port $RESET"
 
 mkdir -p ${codis_dir} 1>/dev/null 2>&1
 cp -fp ${config_dir}codis.conf ${codis_cfg}
-sed -i "s/^pidfile/pidfile ${codis_pid}/g" ${codis_cfg}
-sed -i "s/^port/port ${port}/g" ${codis_cfg}
-sed -i "s/^logfile/logfile ${codis_log}/g" ${codis_cfg}
-sed -i "s/^dbfilename/${codis_dump}/g" ${codis_cfg}
-sed -i "s/^dir/${codis_dir}/g" ${codis_cfg}
+
+echo ${codis_pid}
+echo ${codis_cfg}
+sed -i "s#^pidfile#pidfile ${codis_pid}#g" ${codis_cfg}
+sed -i "s#^port#port ${port}#g" ${codis_cfg}
+sed -i "s#^logfile#logfile ${codis_log}#g" ${codis_cfg}
+sed -i "s#^dbfilename#${codis_dump}#g" ${codis_cfg}
+sed -i "s#^dir#${codis_dir}#g" ${codis_cfg}
