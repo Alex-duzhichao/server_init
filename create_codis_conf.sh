@@ -1,5 +1,5 @@
 #!/bin/bash
-set -v 
+# set -v 
 RED=\\e[1m\\e[31m
 DARKRED=\\e[31m
 GREEN=\\e[1m\\e[32m
