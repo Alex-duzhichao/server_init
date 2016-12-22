@@ -14,12 +14,27 @@ CYAN=\\e[1m\\e[36m
 DARKCYAN=\\e[36m
 RESET=\\e[m
 
+while getopts hn opt
+do
+    case "$opt" in
+        h)
+            echo -e "$RED USAGE: $0 port. e.g.: $0 6379 $RESET"
+            exit 1; 
+            ;;
+        \?) break;; # unknown flag
+    esac
+done
+
 if [ $# != 1 ] ; then
-echo -e "$RED USAGE: $0 port. e.g.: $0 6379 $RESET"
-exit 1;
+    echo -e "$RED USAGE: $0 port. e.g.: $0 6379 $RESET"
+    exit 1;
 fi
 
 echo -e "$DARKBLUE starting codis server on port : $1 ... $RESET"
 
-/usr/local/go/goPath/src/github.com/CodisLabs/codis/bin/codis-server /mnt/sdc/codis_conf/codis_$1.conf
+codis=/usr/local/go/goPath/src/github.com/CodisLabs/codis/
+codis_dir=${codis}codis_dir/${port}/
+codis_cfg=${codis_dir}$port.conf
+codis_server=${codis}bin/codis-server
+${codis_server} $codis_cfg
 

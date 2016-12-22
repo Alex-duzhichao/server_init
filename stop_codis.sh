@@ -14,6 +14,17 @@ CYAN=\\e[1m\\e[36m
 DARKCYAN=\\e[36m
 RESET=\\e[m
 
+while getopts hn opt
+do
+    case "$opt" in
+        h)
+            echo -e "$RED USAGE: $0 port. e.g.: $0 6379 $RESET"
+            exit 1; 
+            ;;
+        \?) break;; # unknown flag
+    esac
+done
+
 if [ $# != 1 ] ; then
 echo -e "$RED USAGE: $0 port. e.g.: $0 6379 $RESET"
 exit 1;

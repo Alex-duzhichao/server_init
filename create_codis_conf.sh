@@ -25,21 +25,26 @@ do
     esac
 done
 
-mkdir -p /usr/local/go/goPath/src/github.com/CodisLabs/codis/codis_dir/$port/ 1>/dev/null 2>&1
+if [ $# != 1 ] ; then
+    echo -e "$RED e.g.: $0 6379 $RESET" 
+    exit 1;
+fi
+
+port=$1
+config_dir=/root/server_init/
+codis=/usr/local/go/goPath/src/github.com/CodisLabs/codis/
+codis_dir=${codis}codis_dir/${port}/
+codis_cfg=${codis_dir}$port.conf
+codis_pid=${codis_dir}$port.pid
+codis_log=${codis_dir}$port.log
+codis_dump=${codis_dir}$port.rdb
 
 echo -e "$DARKBLUE create codis server config ,port : $port $RESET"
 
-cp -fp codis.conf codis_$port.conf
-sed -i "s/pidfile \/mnt\/sdc\/codis\/codis.pid/pidfile \/mnt\/sdc\/codis\/$port\/codis_$port.pid/g" codis_$port.conf
-sed -i "s/port 6379/port $port/g" codis_$port.conf
-sed -i "s/logfile \"\/mnt\/sdc\/codis\/codis.log\"/logfile \"\/mnt\/sdc\/codis\/$port\/codis_$port.log\"/g" codis_$port.conf
-sed -i "s/dbfilename dump.rdb/dbfilename dump_$port.rdb/g" codis_$port.conf
-sed -i "s/dir \/mnt\/sdc/dir \/mnt\/sdc\/codis\/$port\//g" codis_$port.conf
-
-if [ $is_master = 1 ]; then
-sed -i "s/save 900 1/#save 900 1/g" codis_$port.conf
-sed -i "s/save 300 10/#save 300 10/g" codis_$port.conf
-sed -i "s/save 60 10000/#save 60 10000/g" codis_$port.conf
-else
-sed -i "s/# slaveof <masterip> <masterport>/slaveof $master_ip $master_port/g" codis_$port.conf
-fi
+mkdir -p ${codis_dir} 1>/dev/null 2>&1
+cp -fp ${config_dir}codis.conf ${codis_cfg}
+sed -i "s/^pidfile/pidfile ${codis_pid}/g" ${codis_cfg}
+sed -i "s/^port/port ${port}/g" ${codis_cfg}
+sed -i "s/^logfile/logfile ${codis_log}/g" ${codis_cfg}
+sed -i "s/^dbfilename/${codis_dump}/g" ${codis_cfg}
+sed -i "s/^dir/${codis_dir}/g" ${codis_cfg}
