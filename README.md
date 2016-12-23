@@ -17,8 +17,10 @@
 	yum install -y boost
 	yum install -y cmake
 	yum install -y iotop
+	yum install -y nc
 	yum install -y python-setuptools python python-devel
 	easy_install pip && pip install virtualenv
+	pip install redis
 	yum install -y java
 	yum groupinstall -y "Development Tools"
 
@@ -104,7 +106,26 @@
 	cd $_ && git clone https://github.com/CodisLabs/codis.git -b release2.0
 	cd $GOPATH/src/github.com/CodisLabs/codis ; make ; ls bin/
 
+	sed -i 's/zk=192.168.0.123:2181/zk=127.0.0.1:2181/' /usr/local/go/goPath/src/github.com/CodisLabs/codis/config.ini
 	sed -i 's/dashboard_addr=192.168.0.123:18087/dashboard_addr=0.0.0.0:18087/' /usr/local/go/goPath/src/github.com/CodisLabs/codis/config.ini
+
+	nohup bin/codis-config dashboard &> config_nohup.log & 
+	bin/codis-config slot init
+
+	mkdir /usr/local/go/goPath/src/github.com/CodisLabs/codis/codis_dir
+	cp -fp ~/server_init/create_codis_conf.sh /usr/local/go/goPath/src/github.com/CodisLabs/codis/codis_dir
+	cp -fp ~/server_init/start_codis.sh /usr/local/go/goPath/src/github.com/CodisLabs/codis/codis_dir
+	cp -fp ~/server_init/stop_codis.sh /usr/local/go/goPath/src/github.com/CodisLabs/codis/codis_dir
+	chmod +x /usr/local/go/goPath/src/github.com/CodisLabs/codis/codis_dir/*.sh
+
+	cd /usr/local/go/goPath/src/github.com/CodisLabs/codis
+	bin/codis-config server add 1 127.0.0.1:7000 master
+	bin/codis-config server add 2 127.0.0.1:7001 master
+	bin/codis-config slot range-set 0 511 1 online
+	bin/codis-config slot range-set 512 1023 2 online
+
+	
+	nohup bin/codis-proxy -L proxy.log  --cpu=1 --addr=0.0.0.0:6999 --http-addr=0.0.0.0:11000 &> proxy_nohup.log &
 
 
 # install vim
