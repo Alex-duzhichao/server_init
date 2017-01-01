@@ -14,14 +14,15 @@
 	yum install -y dos2unix
 	yum install -y screen
 	yum install -y cscope
-	yum install -y boost
+	yum install -y boost boost-devel
+	yum install -y valgrind
 	yum install -y cmake
 	yum install -y iotop
 	yum install -y nc
 	yum install -y python-setuptools python python-devel
 	easy_install pip && pip install virtualenv
 	pip install redis
-	yum install -y java
+	yum install -y java java-devel
 	yum groupinstall -y "Development Tools"
 
 
@@ -125,8 +126,13 @@
 	bin/codis-config slot range-set 512 1023 2 online
 
 	
-	nohup bin/codis-proxy -L proxy.log  --cpu=1 --addr=0.0.0.0:6999 --http-addr=0.0.0.0:11000 &> proxy_nohup.log &
+	nohup bin/codis-proxy -L proxy.log  --cpu=1 --addr=0.0.0.0:7000 --http-addr=0.0.0.0:11000 &> proxy_nohup.log &
 
+# install jenkins
+	sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+    yum install -y jenkins
+    service jenkins start
 
 # install vim
     yum erase vim-enhanced vim-common vim-minimal vim-filesystem -y
