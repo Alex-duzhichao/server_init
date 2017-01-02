@@ -16,7 +16,8 @@
 	yum install -y cscope
 	yum install -y boost boost-devel
 	yum install -y valgrind
-	yum install -y cmake
+	#yum install -y cmake;mv /usr/bin/cmake /usr/bin/cmake28
+	yum install -y cmake3;sudo ln -s /usr/bin/cmake3 /usr/bin/cmake
 	yum install -y iotop
 	yum install -y nc
 	yum install -y python-setuptools python python-devel
@@ -24,6 +25,9 @@
 	pip install redis
 	yum install -y java java-devel
 	yum groupinstall -y "Development Tools"
+	sysctl -w kernel.core_pattern=core.%e.%p.%t
+	ulimit -c unlimited
+	echo "ulimit -S -c unlimited > /dev/null 2>&1" >> /etc/profile
 
 
 
