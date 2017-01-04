@@ -1,4 +1,5 @@
-alias m='make clean;make'
+alias m='make'
+alias mc='make clean;make'
 alias ll='ls -ltrh'
 alias la='ls -a'
 alias lg='ls -a|grep'
